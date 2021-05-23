@@ -1,86 +1,80 @@
-# React Architecture
+# Este é um teste técnico para Toro
+
+## Architecture
 
 - React
-- Custom Create react app
-- Reuse components
-- Tests with React Testing Library
+- React Router Dom
+- Jest
+- React Testing Library
+- Axios
+- Typescript
+- Styled Components
+- Husky
+- Lint Staged
 
-**This is your source code tree:**
-
-```
-src
-|-- @types
-|-- assets
-|-- styles
-|-- components
-|-- containers
-|-- helpers
-|-- pages
-|-- routes
-|-- services
-|-- App.tsx
-|-- index.tsx
-...
-```
-Every item created inside components, containers, pages... will be a folder with their code, the tests file, and to keep your code simple and short you can add extra files for helpers or styles it this folder. The folder structure will look like this:
+### <strong>Árvore do código fonte:</strong>
 
 ```
-components
-|-- YouComponent
-    |-- index.ts
-    |-- ComponentName.test.ts
-    |-- styles.ts
-    |-- // Extra files for things like helpers or styles
-...
+  src
+  |-- __mocks__
+  |-- __tests__
+  |-- @types
+  |-- assets
+  |-- components
+  |-- containers
+  |-- helpers
+  |-- containers
+  |-- pages
+  |-- routes
+  |-- services
+  |-- styles
+  |-- App.tsx
+  |-- index.tsx
 ```
+
 <br/>
 
-# Folders description
+## Instalação ambiente de desenvolvimento
 
-### `./assets`
+Requisitos para rodar o projeto nodeJS >= 14. Clonar repositório, entrar na pasta e instalar suas dependências com o comando `yarn` ou `npm install` e copiar o arquivo `.env.example` para `.env.development` configurando as variáveis de acordo com o ambiente.
 
-Here will be all your project assets as images, icons...
+<br/>
 
-### `./components`
 
-Components are presentational only elements, grouping UI items
+## Scripts
 
-### `./containers`
+<details>
+  <summary>
+    <strong style="font-size: 15px;">Testes</strong>
+  </summary>
 
-Containers are responsible for connecting components with services and global state management. All the logic stays here, to keep components only with visual concerns
+  <br/>
 
-### `./pages`
+  <b>Rodar testes</b>
 
-Pages are mapped in routes and have all the components needed to implement a functionality
+  > `npm test`
 
-### `./routes`
+  <b>Rodar cobertura de testes</b>
 
-Routes contains the `react-router-dom` implementation to map the project's routes to the respective pages
+  > `npm run test:ci`
+</details>
 
-### `./services`
+<br/>
 
-Services are responsible to handle the connection with all external elements, like APIs
+<details>
+  <summary>
+    <strong style="font-size: 15px;">Rodar código</strong>
+  </summary>
 
-### `./helpers`
+  <br/>
 
-Directory to keep all `helpers` functions to share all over the project
+  <b>Rodar servidor</b>
 
-<br>
+  <p>*** Antes rodar script de build ***</p>
 
-# Scripts
+  > `npm run start`
 
-### Server from develop
+  <b>Buildar código</b>
 
-> `npm start`
-
-### Code from build
-
-> `npm run build`
-
-### Running tests
-
-> `npm test`
-
-### Running tests coverage
-
-> `npm run coverage`
+  > `npm run build`
+</details>

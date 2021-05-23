@@ -3,17 +3,21 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
-import ErrorMessage from 'components/ErrorMessage';
 
 import logo from 'assets/images/logo.png';
 
 import { useUser } from 'containers/user';
 
-import { ModalLogin, WrapperContent, WrapperForm } from './styles';
+import {
+  ModalLogin,
+  WrapperContent,
+  WrapperForm,
+  ErrorMessage,
+} from './styles';
 
 const Login: React.FC = () => {
   const {
-    actions: { makeLogin, makeRegister },
+    actions: { makeLogin, makeRegister, resetError },
     data: { loading, error },
   } = useUser();
 
@@ -36,6 +40,8 @@ const Login: React.FC = () => {
     setName('');
     setMail('');
     setPassword('');
+    resetError();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogin]);
 
   return (
@@ -48,55 +54,54 @@ const Login: React.FC = () => {
         {loading ? (
           <Loader />
         ) : (
-          <>
-            {error ? (
-              <ErrorMessage>Ocorreu um erro!</ErrorMessage>
-            ) : (
-              <WrapperForm onSubmit={handleSubmit}>
-                {!isLogin && (
-                  <Input
-                    value={name}
-                    type="string"
-                    onChange={setName}
-                    placeholder="Nome"
-                    required
-                  />
-                )}
-
-                <Input
-                  value={mail}
-                  type="email"
-                  onChange={setMail}
-                  placeholder="E-mail"
-                  required
-                />
-
-                <Input
-                  value={password}
-                  onChange={setPassword}
-                  placeholder="Senha"
-                  type="password"
-                  required
-                  minLength={6}
-                  maxLength={20}
-                />
-
-                {isLogin ? (
-                  <p onClick={() => setIsLogin(false)}>
-                    Não é cadastrado? Faça seu cadastro <strong>aqui.</strong>
-                  </p>
-                ) : (
-                  <p onClick={() => setIsLogin(true)}>
-                    Já é cadastrado? Faça seu login <strong>aqui.</strong>
-                  </p>
-                )}
-
-                <Button type="submit" width="300px">
-                  {isLogin ? 'Entrar' : 'Continue'}
-                </Button>
-              </WrapperForm>
+          <WrapperForm onSubmit={handleSubmit}>
+            {!isLogin && (
+              <Input
+                value={name}
+                type="string"
+                onChange={setName}
+                placeholder="Nome"
+                required
+                name="name"
+              />
             )}
-          </>
+
+            <Input
+              value={mail}
+              type="email"
+              onChange={setMail}
+              placeholder="E-mail"
+              required
+              name="mail"
+            />
+
+            <Input
+              value={password}
+              onChange={setPassword}
+              placeholder="Senha"
+              type="password"
+              required
+              minLength={6}
+              maxLength={20}
+              name="password"
+            />
+
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+
+            {isLogin ? (
+              <p onClick={() => setIsLogin(false)}>
+                Não é cadastrado? Faça seu cadastro <strong>aqui.</strong>
+              </p>
+            ) : (
+              <p onClick={() => setIsLogin(true)}>
+                Já é cadastrado? Faça seu login <strong>aqui.</strong>
+              </p>
+            )}
+
+            <Button type="submit" width="300px">
+              {isLogin ? 'Entrar' : 'Continue'}
+            </Button>
+          </WrapperForm>
         )}
       </WrapperContent>
     </ModalLogin>

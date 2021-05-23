@@ -28,4 +28,5 @@ export interface IActions {
   makeRegister(data: IRegisterUser): Promise<void>;
   makeLogout(): void;
   getUser(): Promise<void>;
+  resetError(): void;
 }

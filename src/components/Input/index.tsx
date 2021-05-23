@@ -11,6 +11,7 @@ type TInput = {
   required?: boolean;
   minLength?: number;
   maxLength?: number;
+  name: string;
 };
 
 const Input: React.FC<TInput> = ({
@@ -21,6 +22,7 @@ const Input: React.FC<TInput> = ({
   required,
   minLength,
   maxLength,
+  name,
 }: TInput) => {
   const handleChange = ({
     target: { value: dataValue },
@@ -38,6 +40,7 @@ const Input: React.FC<TInput> = ({
         required={required}
         minLength={minLength}
         maxLength={maxLength}
+        name={name}
       />
     </Container>
   );

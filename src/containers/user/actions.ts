@@ -18,7 +18,9 @@ interface IData {
   changeState(data: IDataChangeState): void;
 }
 
-export default ({ changeState }: IData): IActions => ({
+const INTERNAL_ERROR = 'Erro interno!';
+
+export default ({ changeState, data: { error } }: IData): IActions => ({
   makeLogin: async (user: ILoginUser): Promise<void> => {
     changeState({ label: 'loading', value: true });
 
@@ -35,11 +37,18 @@ export default ({ changeState }: IData): IActions => ({
 
       setSession(token);
 
+      if (error) changeState({ label: 'error', value: null });
+
       history.push('/');
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const MAP_ERRORS: any = {
+        400: 'E-mail ou senha incorretos!',
+      };
+
       changeState({
         label: 'error',
-        value: true,
+        value: MAP_ERRORS[err?.status] || INTERNAL_ERROR,
       });
     }
 
@@ -61,11 +70,13 @@ export default ({ changeState }: IData): IActions => ({
 
       setSession(token);
 
+      if (error) changeState({ label: 'error', value: null });
+
       history.push('/');
     } catch (err) {
       changeState({
         label: 'error',
-        value: true,
+        value: INTERNAL_ERROR,
       });
     }
 
@@ -91,14 +102,20 @@ export default ({ changeState }: IData): IActions => ({
         value: response,
       });
 
+      if (error) changeState({ label: 'error', value: null });
+
       history.push('/');
     } catch (err) {
       changeState({
         label: 'error',
-        value: true,
+        value: INTERNAL_ERROR,
       });
     }
 
     changeState({ label: 'loading', value: false });
+  },
+
+  resetError: () => {
+    changeState({ label: 'error', value: null });
   },
 });
